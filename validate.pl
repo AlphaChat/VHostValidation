@@ -114,10 +114,12 @@ while ($req->Accept() == 0)
 
     if (AuthVerify($hostname, $account_name, @nameservers))
     {
+        PrintMessage "";
         PrintMessage "The record is in place: You may now '/msg HostServ REQUEST %s'", $virtual_host;
     }
     else
     {
+        PrintMessage "";
         PrintMessage "The record is not yet in place, do NOT request the vHost yet!";
     }
 }
