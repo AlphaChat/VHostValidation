@@ -5,25 +5,57 @@ use warnings;
 use diagnostics;
 
 our @ISA = qw/Exporter/;
-our @EXPORT_OK = qw/VHostIsValid/;
+our @EXPORT_OK = qw/AccountNameIsValid VHostIsValid/;
 use Exporter qw/import/;
+
+sub AccountNameIsValid
+{
+    my ($account) = @_;
+
+    if ($account =~ m|[^A-Z0-9\[\]\{\}\^\`\_\-\\\|]|in)
+    {
+        $@ = "Contains invalid characters";
+        return 0;
+    }
+
+    return 1;
+}
 
 sub VHostIsValid
 {
     my ($vhost) = @_;
+    my $label;
 
     if ($vhost !~ m|\.|)
     {
-        $@ = "Must contain a period";
+        $@ = "Does not contain a period";
+        return 0;
+    }
+    if ($vhost =~ m|\.\.|)
+    {
+        $@ = "Contains 2 or more consecutive periods";
         return 0;
     }
     if ($vhost =~ m|^\.| || $vhost =~ m|\.+$|)
     {
-        $@ = "Must not begin or end with a period";
+        $@ = "Contains a period at the beginning or end";
         return 0;
     }
+    if ($vhost =~ m|[^A-Z0-9.-]|in)
+    {
+        $@ = "Contains invalid characters";
+        return 0;
+    }
+    while ($vhost =~ m|\.|)
+    {
+        ($label, $vhost) = split(/\./, $vhost, 2);
 
-    ### XXX TODO This
+        if ($label =~ m|^-| || $label =~ m|-$|)
+        {
+            $@ = "Contains a label that starts or ends with a hyphen";
+            return 0;
+        }
+    }
 
     return 1;
 }

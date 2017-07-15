@@ -10,7 +10,7 @@ use AlphaChat::NameserverLookup qw/NameserverLookup/;
 use AlphaChat::PrintMessage qw/PrintMessage SetMessageHandle/;
 use AlphaChat::VHost::AuthToken qw/AuthGenerate AuthVerify/;
 use AlphaChat::VHost::PublicSuffix qw/LoadList VHostToRHost/;
-use AlphaChat::VHost::Validity qw/VHostIsValid/;
+use AlphaChat::VHost::Validity qw/AccountNameIsValid VHostIsValid/;
 
 LoadList() || die $@;
 
@@ -49,15 +49,20 @@ while ($req->Accept() == 0)
 
     PrintMessage "Content-Type: text/plain; charset=utf-8\r\n\r\n";
 
-    PrintMessage "Using vHost '%s'", $virtual_host;
-    PrintMessage "";
-
+    if (! AccountNameIsValid($account_name))
+    {
+        PrintMessage "Invalid account name: %s", $@;
+        next;
+    }
     if (! VHostIsValid($virtual_host))
     {
-        PrintMessage "  Invalid vHost: %s", $@;
+        PrintMessage "Invalid vHost: %s", $@;
         next;
     }
 
+    PrintMessage "Using vHost '%s'", $virtual_host;
+    PrintMessage "Using account name '%s' (case-sensitive)", $account_name;
+    PrintMessage "";
     PrintMessage "Matching '%s' against the Public Suffix List ...", $virtual_host;
 
     $req->Flush();
@@ -86,9 +91,6 @@ while ($req->Accept() == 0)
         PrintMessage "You cannot use this as a vHost!";
         next;
     }
-
-    PrintMessage "";
-    PrintMessage "Using account name '%s' (case-sensitive)", $account_name;
 
     if (! $correct)
     {
