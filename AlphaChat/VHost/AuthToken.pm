@@ -48,7 +48,7 @@ sub AuthVerify
                 {
                     if ($contents eq $token)
                     {
-                        PrintMessage "      Match!";
+                        PrintMessage "    Match!";
                         return 1;
                     }
                 }
