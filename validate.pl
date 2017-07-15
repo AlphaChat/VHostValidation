@@ -67,7 +67,7 @@ while ($req->Accept() == 0)
     {
         PrintMessage "";
         PrintMessage "Note that the request will only be automatically validated if the information you provided to this script is correct.";
-        PrintMessage "For example, the services account name is case-sensitive, and is NOT the same thing as a nickname.";
+        PrintMessage "For example, the services account name is case-sensitive, and is NOT the same thing as a nickname!";
     }
 
     PrintMessage "";
@@ -108,10 +108,9 @@ while ($req->Accept() == 0)
     PrintMessage "  Name:     %s.%s", $prefix, $hostname;
     PrintMessage "  Contents: %s", $token;
     PrintMessage "";
-    PrintMessage "Once you have created this record, please wait a few moments, and then refresh this webpage";
+    PrintMessage "Once you have created this record, please wait a few moments, and then refresh this webpage.";
     PrintMessage "";
     PrintMessage "Checking whether the record is in place now ...";
-    PrintMessage "";
 
     $req->Flush();
 
