@@ -62,6 +62,14 @@ while ($req->Accept() == 0)
 
     PrintMessage "Using vHost '%s'", $virtual_host;
     PrintMessage "Using account name '%s' (case-sensitive)", $account_name;
+
+    if (! $correct)
+    {
+        PrintMessage "";
+        PrintMessage "Note that the request will only be automatically validated if the information you provided to this script is correct.";
+        PrintMessage "For example, the services account name is case-sensitive, and is NOT the same thing as a nickname.";
+    }
+
     PrintMessage "";
     PrintMessage "Matching '%s' against the Public Suffix List ...", $virtual_host;
 
@@ -90,13 +98,6 @@ while ($req->Accept() == 0)
         PrintMessage "The hostname '%s' does not appear to have any nameservers associated with it!", $hostname;
         PrintMessage "You cannot use this as a vHost!";
         next;
-    }
-
-    if (! $correct)
-    {
-        PrintMessage "";
-        PrintMessage "Note that the request will only be automatically validated if the information you provided to this script is correct.";
-        PrintMessage "For example, the services account name is case-sensitive, and is NOT the same thing as a nickname.";
     }
 
     my ($prefix, $token) = AuthGenerate($hostname, $account_name);
