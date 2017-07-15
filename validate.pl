@@ -47,7 +47,7 @@ while ($req->Accept() == 0)
 
     SetMessageHandle $fd1;
 
-    PrintMessage "Content-Type: text/plain\r\n\r\n";
+    PrintMessage "Content-Type: text/plain; charset=utf-8\r\n\r\n";
 
     PrintMessage "Using vHost '%s'", $virtual_host;
     PrintMessage "";
