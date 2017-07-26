@@ -100,7 +100,7 @@ while ($req->Accept() == 0)
         next;
     }
 
-    my ($prefix, $token) = AuthGenerate($hostname, $account_name);
+    my ($prefix, $token) = AuthGenerate $hostname, $account_name;
 
     PrintMessage "";
     PrintMessage "Please create the following DNS TXT record:";
