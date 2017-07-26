@@ -12,6 +12,7 @@ use AlphaChat::VHost::PublicSuffix qw/LoadList VHostToRHost/;
 use AlphaChat::VHost::Validity qw/VHostIsValid/;
 
 my $recent_sec = 86400;
+my $uri_prefix = 'https://validation.alphachat.net/cgi-bin/validate.pl'
 my $chatnet    = 'AlphaChat';
 my $hsnick     = 'HostServ';
 my $nsnick     = 'NickServ';
@@ -153,9 +154,7 @@ sub VHostHandleRequest
     }
 
     my $message1 = "[Automatic Message] You are receiving these messages because you requested a vHost.";
-
-    my $message2 = "To request the vHost '%s', please visit " .
-                   "https://validation.alphachat.net/cgi-bin/validate.pl?virtual_host=%s&account_name=%s&correct";
+    my $message2 = "To request the vHost '%s', please visit %s?virtual_host=%s&account_name=%s&correct";
 
     my $message3 = "Alternatively, join the '%s' channel to manually prove that you have " .
                    "control over the domain '%s'. This will take longer, as a human has to " .
@@ -164,7 +163,7 @@ sub VHostHandleRequest
     my $message4 = "Do not reply to these messages; no-one monitors this bot for responses.";
 
     SendPrivateMessage $server, $nick, $message1;
-    SendPrivateMessage $server, $nick, $message2, $virtual_host, $virtual_host, $account_name;
+    SendPrivateMessage $server, $nick, $message2, $virtual_host, $uri_prefix, $virtual_host, $account_name;
     SendPrivateMessage $server, $nick, $message3, $hchan, $hostname;
     SendPrivateMessage $server, $nick, $message4;
 
