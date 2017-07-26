@@ -12,7 +12,7 @@ use AlphaChat::VHost::PublicSuffix qw/LoadList VHostToRHost/;
 use AlphaChat::VHost::Validity qw/VHostIsValid/;
 
 my $recent_sec = 86400;
-my $uri_prefix = 'https://validation.alphachat.net/cgi-bin/validate.pl'
+my $uri_prefix = 'https://validation.alphachat.net/cgi-bin/validate.pl';
 my $chatnet    = 'AlphaChat';
 my $hsnick     = 'HostServ';
 my $nsnick     = 'NickServ';
