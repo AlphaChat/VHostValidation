@@ -137,7 +137,7 @@ sub VHostHandleRequest
     }
 
     PrintMessage "    Found '%s'", $hostname;
-    PrintMessage("Resolving nameservers for '%s' ...", $hostname);
+    PrintMessage "Resolving nameservers for '%s' ...", $hostname;
 
     my @nameservers = NameserverLookup $hostname;
 
