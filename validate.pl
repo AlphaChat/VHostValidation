@@ -86,7 +86,7 @@ while ($req->Accept() == 0)
 
     PrintMessage "    Found '%s'", $hostname;
     PrintMessage "";
-    PrintMessage("Resolving nameservers for '%s' ...", $hostname);
+    PrintMessage "Resolving nameservers for '%s' ...", $hostname;
 
     $req->Flush();
 
