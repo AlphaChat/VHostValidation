@@ -62,7 +62,7 @@ sub LoadList
 
 sub VHostToRHost
 {
-    my ($virtual_host) = @_;
+    my $virtual_host = lc shift;
 
     if ((! $suffix_count) || (time() - $suffix_time) > 86400)
     {
