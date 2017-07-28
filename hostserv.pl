@@ -170,8 +170,8 @@ sub VHostHandleRequest
     VHostReject $server, $account_name, $hostname, "missing or invalid DNS TXT record";
 }
 
-Irssi::signal_add_first("message public", sub {
-
+sub PublicMessage
+{
     my ($server, $message, $nick, undef, $channel) = @_;
 
     return unless ($server->{"chatnet"} eq $chatnet);
@@ -205,8 +205,10 @@ Irssi::signal_add_first("message public", sub {
         Irssi::signal_stop();
     }
 
-});
+}
 
 SetMessageNewLine 0;
 
 LoadList() || die $@;
+
+Irssi::signal_add_first('message public', \&PublicMessage);
